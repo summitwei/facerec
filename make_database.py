@@ -1,5 +1,5 @@
 # Take existing pictures and make database of name:descriptor vectors & mean vector.(Eric)
-from C import C_1
+from C import C1
 from Camera import take_picture
 import dlib
 from FaceToDescription import face_to_vector
