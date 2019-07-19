@@ -28,5 +28,5 @@ def C1(image):
 
     detections = Csub3(image)
     shape=Csub4(detections)
-    shape= shape_predictor(pic, detections[0])
+    shape= shape_predictor(image, detections[0])
     return (image,shape), detections
