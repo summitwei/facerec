@@ -29,7 +29,7 @@ def make_data(pics, nms):
 
     try:
         with open("vecs.pickle","rb") as vecFile:
-            vecs=pickle.load(faceFile)
+            vecs=pickle.load(vecFile)
     except:
         vecs = {}
     
@@ -42,11 +42,11 @@ def make_data(pics, nms):
         if(name not in vecs):
             vecs[name] = np.array([descriptor])
         else:
-            vecs[name].append(descriptor)
+            vecs[name]=np.append(vecs[name], descriptor)
     
     for name in vecs:
         descs=vecs[name]
-        mean_vecs[name] = np.mean(descs, axis=1)
+        mean_vecs[name] = np.mean(descs, axis=0)
     
     pickle_out = open("vecs.pickle", "wb")
     pickle.dump(vecs, pickle_out)

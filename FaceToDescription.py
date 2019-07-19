@@ -42,21 +42,27 @@ def desc_comp_data(vect):
     """
     with open("mean_vecs.pickle", "rb") as faceFile:
         faceDict = dict(pickle.load(faceFile))
-        print(faceDict)
+
 
     diffs = {}
     index=0
+    print(vect.shape)
     for key in faceDict:
-        currentdiff = np.sqrt((vect[index]-faceDict[key])**2)
-        index+=1
+        currentdiff = np.sqrt(np.sum((vect-faceDict[key])**2))
+        # index+=1
+        # print(vect[index])
+        # print(faceDict[key])
         diffs[key] = currentdiff
 
     mydictkeys = list(diffs.keys())
     least = diffs[mydictkeys[0]]
     closest = mydictkeys[0]
-
+    print("\n")
+    print("\n")
+    print("\n")
+    print("\n")
     for key in diffs:
-        print("%s,%s" %(diffs[key],key))
+
         if diffs[key]<least:
             least = diffs[key]
             closest = key
