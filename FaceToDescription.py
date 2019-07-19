@@ -46,9 +46,10 @@ def desc_comp_data(vect):
 
     diffs = {}
     index=0
-    print(vect.shape)
+
     for key in faceDict:
-        currentdiff = np.sqrt(np.sum((vect-faceDict[key])**2))
+        print(faceDict[key].shape)
+        currentdiff = np.sqrt(np.sum(vect-faceDict[key])**2)
         # index+=1
         # print(vect[index])
         # print(faceDict[key])
@@ -57,10 +58,7 @@ def desc_comp_data(vect):
     mydictkeys = list(diffs.keys())
     least = diffs[mydictkeys[0]]
     closest = mydictkeys[0]
-    print("\n")
-    print("\n")
-    print("\n")
-    print("\n")
+
     for key in diffs:
 
         if diffs[key]<least:
@@ -70,7 +68,7 @@ def desc_comp_data(vect):
     # #To be computed after data: gives threshold if face is not close to any
     threshhold = 0.5
     if (least>threshhold):
-        return "No face match found from database"
+        return "No face match found from database",least
     else:
         return closest,least
 

@@ -40,9 +40,14 @@ def make_data(pics, nms):
         detecs, shapes = C1(pic)
         descriptor = face_to_vector(pic, shapes[0])
         if(name not in vecs):
+
+
             vecs[name] = np.array([descriptor])
+
         else:
-            vecs[name]=np.append(vecs[name], descriptor)
+
+            vecs[name]=np.vstack((vecs[name], descriptor))
+
     
     for name in vecs:
         descs=vecs[name]

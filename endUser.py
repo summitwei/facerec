@@ -4,10 +4,11 @@ from camera import take_picture
 from C import C1
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+import numpy as np
 from FaceToDescription import face_to_vector,desc_comp_data
 
 def main():
-    pickleName="mean_vecs.pickle"
+    pickleName="vecs.pickle"
     with open(pickleName,"rb") as faceFile:
         faceDic=pickle.load(faceFile)
     answer = "None"
@@ -45,8 +46,63 @@ def main():
 
         ax.add_patch(rectange)
         ax.text((l + 10), b + 40, match, color="red", fontsize=20)
+        faceDic2=[]
+        if match[1]<0.5:
+            pickleName = "vecs.pickle"
+            with open(pickleName, "rb") as faceFile:
+                faceDic = pickle.load(faceFile)
+            faceDic[match[0]]=np.vstack((faceDic[match[0]],desc_vector))
+            pickleName2 = "mean_vecs.pickle"
+            with open(pickleName2, "rb") as faceFile2:
+                faceDic2 = pickle.load(faceFile2)
+            print('match')
+            print(faceDic[match[0]].shape)
+            print(np.mean(faceDic[match[0]],axis=0))
+            faceDic2[match[0]]=np.mean(faceDic[match[0]],axis=0)
+            pickle_out = open("vecs.pickle", "wb")
+            pickle.dump(faceDic, pickle_out)
+            pickle_out.close()
+            pickle_out2 = open("mean_vecs.pickle", "wb")
+            pickle.dump(faceDic2, pickle_out2)
+            pickle_out2.close()
+            plt.show()
+        else:
+            name=input("Enter name for unknown person")
+            pickleName = "vecs.pickle"
+            with open(pickleName, "rb") as faceFile:
+                faceDic = pickle.load(faceFile)
+            if name in faceDic:
+                faceDic[name] = np.vstack((faceDic[name], desc_vector))
+                pickleName2 = "mean_vecs.pickle"
+                with open(pickleName2, "rb") as faceFile2:
+                    faceDic2 = pickle.load(faceFile2)
+                print("No match but should")
+                print(faceDic[name].shape)
+                print(np.mean(faceDic[name], axis=0))
+                faceDic2[name] = np.mean(faceDic[name], axis=0)
+                pickle_out = open("vecs.pickle", "wb")
+                pickle.dump(faceDic, pickle_out)
+                pickle_out.close()
+                pickle_out2 = open("mean_vecs.pickle", "wb")
+                pickle.dump(faceDic2, pickle_out2)
+                pickle_out2.close()
+                plt.show()
+            else:
+                faceDic[name]=np.array([desc_vector])
+                pickleName2 = "mean_vecs.pickle"
+                with open(pickleName2, "rb") as faceFile2:
+                    faceDic2 = pickle.load(faceFile2)
+                faceDic2[name] = desc_vector
+                print("no match-good")
+                pickle_out = open("vecs.pickle", "wb")
+                pickle.dump(faceDic, pickle_out)
+                pickle_out.close()
+                pickle_out2 = open("mean_vecs.pickle", "wb")
+                pickle.dump(faceDic2, pickle_out2)
+                pickle_out2.close()
+                plt.show()
 
-    plt.show()
+
 
 
 

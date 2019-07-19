@@ -21,7 +21,7 @@ def Csub4(detections,image):
 
     for k, d in enumerate(detections):
     # Get the landmarks/parts for the face in box d.
-        print(image.shape)
+
         shape = shape_predictor(image, d) #mesh
         l.append(shape)
     return l
@@ -29,10 +29,10 @@ def Csub4(detections,image):
 
 def C1(image):
     ''' Inputs a picture returns the picture and array of shapes '''
-    print(image.shape)
+
     detections = Csub3(image)
     shape=Csub4(detections,image)
-    print(detections)
+
     # shape= shape_predictor(image, detections[0])
     # shape=C2(image , shape)[1]
     return detections,shape
