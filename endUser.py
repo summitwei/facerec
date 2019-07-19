@@ -35,7 +35,7 @@ ax.imshow(img_array)
 #
 
 for index,a in enumerate(detections):
-    desc_vector=face_to_vector(img_array,a)
+    desc_vector=face_to_vector(img_array,shapes[index])
     match=desc_comp_data(desc_vector)
     l,r,t,b=a.left(),a.right(),a.top(),a.bottom()
 
