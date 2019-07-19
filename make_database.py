@@ -39,12 +39,13 @@ def make_data(pics, nms):
         pic = pics[i]
         detecs, shapes = C1(pic)
         descriptor = face_to_vector(pic, shapes[0])
-        if(names not in vecs):
+        if(name not in vecs):
             vecs[name] = np.array([descriptor])
         else:
             vecs[name].append(descriptor)
     
-    for name,descs in vecs:
+    for name in vecs:
+        descs=vecs[name]
         mean_vecs[name] = np.mean(descs, axis=1)
     
     pickle_out = open("vecs.pickle", "wb")

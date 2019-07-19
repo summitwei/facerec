@@ -6,46 +6,47 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from FaceToDescription import face_to_vector,desc_comp_data
 
-pickleName=""
-with open(pickleName,"rb") as faceFile:
-    faceDic=pickle.load(faceFile)
-answer = "None"
-while answer.lower() not in ["yes", "no"]:
-    answer = input("Type yes to take a picture and recognize faces")
-    answer = answer.lower()
-    if answer == "yes":
-        pass
-    elif answer == "no":
-        sys.exit(0)
-    else:
-        answer = "None"
+def main():
+    pickleName="mean_vecs.pickle"
+    with open(pickleName,"rb") as faceFile:
+        faceDic=pickle.load(faceFile)
+    answer = "None"
+    while answer.lower() not in ["yes", "no"]:
+        answer = input("Type yes to take a picture and recognize faces")
+        answer = answer.lower()
+        if answer == "yes":
+            pass
+        elif answer == "no":
+            sys.exit(0)
+        else:
+            answer = "None"
 
-# Add camera taking(perhaps me/perhaps Charles)
-#
-#
-
-
-img_array=take_picture()
-# faceIm,coordinates=C1(img_array)
-shapes,detections=C1(img_array)
+    # Add camera taking(perhaps me/perhaps Charles)
+    #
+    #
 
 
-fig,ax=plt.subplots()
-ax.imshow(img_array)
-#
-
-for index,a in enumerate(detections):
-    desc_vector=face_to_vector(img_array,shapes[1][index])
-    match=desc_comp_data(desc_vector)
-    l,r,t,b=a.left(),a.right(),a.top(),a.bottom()
+    img_array=take_picture()
+    # faceIm,coordinates=C1(img_array)
+    detections,shapes=C1(img_array)
 
 
-    rectange = patches.Rectangle((l, b), r - l, t - b, linewidth=1, edgecolor='r', facecolor='none')
+    fig,ax=plt.subplots()
+    ax.imshow(img_array)
+    #
 
-    ax.add_patch(rectange)
-    ax.text((l + 10), b + 40, match, color="red", fontsize=20)
+    for index,a in enumerate(detections):
+        desc_vector=face_to_vector(img_array,shapes[index])
+        match=desc_comp_data(desc_vector)
+        l,r,t,b=a.left(),a.right(),a.top(),a.bottom()
 
-plt.show()
+
+        rectange = patches.Rectangle((l, b), r - l, t - b, linewidth=1, edgecolor='r', facecolor='none')
+
+        ax.add_patch(rectange)
+        ax.text((l + 10), b + 40, match, color="red", fontsize=20)
+
+    plt.show()
 
 
 

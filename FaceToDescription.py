@@ -48,8 +48,10 @@ def desc_comp_data(vect):
         currentdiff = np.sqrt((vect-faceDict[key])**2)
         diffs[key] = currentdiff
 
-    least = diffs[diffs.keys[0]]
-    closest = diffs.keys[0]
+    mydictkeys = list(diffs.keys())
+    least = diffs[mydictkeys[0]]
+    closest = mydictkeys[0]
+
     for key in diffs:
         if diffs[key]<least:
             least = diffs[key]
