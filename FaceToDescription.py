@@ -67,11 +67,11 @@ def desc_comp_data(vect):
             least = diffs[key]
             closest = key
 
-    # #To be computed after data: gives threshold if face is not close to any
-    # threshhold = 10
-    # if (closest>threshhold):
-    #     return "No face match found from database"
-    # else:
-    #     return closest
+    # To be computed after data: gives threshold if face is not close to any
+    threshhold = 0.5
+    if (least>threshhold):
+        return "No face match found from database"
+    else:
+        return closest,least
 
-    return closest, least
+    # return closest, least
