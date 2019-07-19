@@ -27,7 +27,7 @@ while answer.lower() not in ["yes", "no"]:
 
 img_array=take_picture()
 # faceIm,coordinates=C1(img_array)
-detections,shapes=C1(img_array)
+shapes,detections=C1(img_array)
 
 
 fig,ax=plt.subplots()
@@ -35,7 +35,7 @@ ax.imshow(img_array)
 #
 
 for index,a in enumerate(detections):
-    desc_vector=face_to_vector(img_array,shapes[index])
+    desc_vector=face_to_vector(img_array,shapes[1][index])
     match=desc_comp_data(desc_vector)
     l,r,t,b=a.left(),a.right(),a.top(),a.bottom()
 
