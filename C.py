@@ -8,8 +8,12 @@ load_dlib_models()
 face_detect = models["face detect"]
 face_rec_model = models["face rec"]
 shape_predictor = models["shape predict"]
-
+shape =[]
+image =None
+shape = None
 def Csub3(image):
+    image = image
+    shape = shape
     detections = list(face_detect(image,1)) #This is holding all the faces in the photo
     return detections # These are the corners
 def Csub4(detections):
@@ -29,4 +33,7 @@ def C1(image):
     detections = Csub3(image)
     shape=Csub4(detections)
     shape= shape_predictor(image, detections[0])
-    return (image,shape), detections
+    C2(image , shape)
+    return detections
+def C2():
+    return image, shape
