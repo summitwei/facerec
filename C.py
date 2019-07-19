@@ -10,14 +10,15 @@ def Csub1():
     shape_predictor = models["shape predict"]
 
 def Csub3(image):
-    detections = list(face_detect(image))
+    detections = list(face_detect(image,1)) #This is holding all the faces in the photo
+    return detections # These are the corners
+def Csub4(detections):
+    #print("Number of faces detected: {}".format(len(detections))) # I see x faces
+    l=[]#holds the shape vectors
 
-def Csub4():
-    print("Number of faces detected: {}".format(len(detections)))
-    l=[]
     for k, d in enumerate(detections):
     # Get the landmarks/parts for the face in box d.
-        shape = shape_predictor(image, d
+        shape = shape_predictor(image, d) #mesh
         l.append(shape)
     return l
 
@@ -25,7 +26,7 @@ def Csub4():
 def C1(image):
     ''' Inputs a picture returns the picture and array of shapes '''
 
-    Csub3(image)
-    shape=Csub4
+    detections = Csub3(image)
+    shape=Csub4(detections)
     shape= shape_predictor(pic, detections[0])
-    return (image,shape), l
+    return (image,shape), detections
