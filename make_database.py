@@ -1,9 +1,12 @@
 # Take existing pictures and make database of name:descriptor vectors & mean vector.(Eric)
-from FaceToDescription import face_to_vector
+from C import C_1
+from Camera import take_picture
 import dlib
+from FaceToDescription import face_to_vector
 import numpy as np
+import pickle
 
-def make_data(pics):
+def make_data(pics, nms):
     '''
     Creates a database of people and their associated vectors.
 
@@ -12,9 +15,10 @@ def make_data(pics):
 
     Parameters:
     -----------
-    pics: list[tuple(String, ndarray)]
+    pics: list[ndarray]
     ndarray dims: 3xnxn
 
+    nms: list[String]
 
     Returns:
     --------
@@ -22,12 +26,19 @@ def make_data(pics):
     ndarray dims: (128, )
     The mean arrays for every person.
     '''
+
+    try:
+        with open("vecs.pickle","rb") as vecFile:
+            vecs=pickle.load(faceFile)
+    except:
+        vecs = {}
     
-    vecs = {}
     mean_vecs = {}
-    for pic in pics:
-        name = pic[0]
-        descriptor = face_to_vector(pic[1])
+    for i in range(len(pics)):
+        name = nms[i]
+        pic = pics[i]
+        detecs, shapes = C1(pic)
+        descriptor = face_to_vector(pic, shapes[0])
         if(names not in vecs):
             vecs[name] = np.array([descriptor])
         else:
@@ -43,3 +54,10 @@ def make_data(pics):
     pickle.dump(mean_vecs, pickle_out2)
     pickle_out2.close()
     return mean_vecs
+
+def add_to_dict():
+    '''take camera picture and add it to the dictionary'''
+
+    img = take_picture()
+    answer = input("who is this?")
+    make_data()
