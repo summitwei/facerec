@@ -60,4 +60,4 @@ def add_to_dict():
 
     img = take_picture()
     answer = input("who is this?")
-    make_data()
+    make_data([img], [answer])
