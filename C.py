@@ -1,11 +1,9 @@
 def Csub1():
+    '''Use this once to load all the pictures'''
     from dlib_models import download_model, download_predictor, load_dlib_models
     download_model()
     download_predictor()
     from dlib_models import models
-#DLIB
-
-def Csub2():
     load_dlib_models()
     face_detect = models["face detect"]
     face_rec_model = models["face rec"]
@@ -23,10 +21,11 @@ def Csub4():
         l.append(shape)
     return l
 
+
 def C1(image):
     ''' Inputs a picture returns the picture and array of shapes '''
-    Csub1()
-    Csub2()
+
     Csub3(image)
     shape=Csub4
-    return image,l
+    shape= shape_predictor(pic, detections[0])
+    return (image,shape), l
